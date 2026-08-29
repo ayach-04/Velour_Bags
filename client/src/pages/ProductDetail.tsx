@@ -42,7 +42,7 @@ export default function ProductDetail() {
     setQuantity(1)
 
     let cancelled = false
-    fetch(`/api/products/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL || ''}/api/products/${id}`)
       .then(res => { if (res.ok) return res.json(); throw new Error() })
       .then(data => { if (!cancelled) { setApiProduct(data); setImgError(false) } })
       .catch(() => {})
