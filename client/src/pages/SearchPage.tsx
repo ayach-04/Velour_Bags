@@ -33,9 +33,10 @@ export default function SearchPage() {
   const [allProducts, setAllProducts] = useState<any[]>([])
   const [dbFamilles, setDbFamilles] = useState<any[]>([])
   const [dbCategories, setDbCategories] = useState<any[]>([])
+  const API_BASE = import.meta.env.DEV ? '' : (import.meta.env.VITE_API_URL || '')
 
   useEffect(() => {
-    fetch(${import.meta.env.VITE_API_URL || ''}/api/products)
+    fetch(`${API_BASE}/api/products`)
       .then(res => res.json())
       .then(data => { if (data.length) setAllProducts(data) })
       .catch(() => {})
