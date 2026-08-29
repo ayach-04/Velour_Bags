@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { HiShoppingBag, HiPhoto, HiCheck, HiMinus, HiPlus, HiTruck, HiShieldCheck, HiCreditCard, HiChevronDown } from 'react-icons/hi2'
 import { useCart } from '../context/CartContext'
@@ -120,73 +120,75 @@ export default function ProductDetail() {
           </nav>
 
           {/* 50/50 Grid: Gallery + Info */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-start">
 
             {/* Left: Gallery */}
-            <div className="flex gap-3">
-              {/* Vertical Thumbnails (desktop) */}
+            <div className="flex flex-col w-full">
+              <div className="flex gap-3">
+                {/* Vertical Thumbnails (desktop) */}
+                {allImages.length > 1 && (
+                  <div className="hidden lg:flex flex-col gap-2 max-h-[520px] overflow-y-auto scrollbar-hide">
+                    {allImages.map((img, i) => (
+                      <button
+                        key={i}
+                        onClick={() => { setSelectedImage(i); setImgError(false) }}
+                        className={`relative w-[68px] h-[68px] shrink-0 overflow-hidden transition-all cursor-pointer ${i === selectedImage ? 'ring-1 ring-foreground' : 'opacity-50 hover:opacity-80'}`}
+                      >
+                        <img src={img} alt="" className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Main Image */}
+                <div className="relative aspect-square w-full bg-gray-50 overflow-hidden">
+                  {imgError ? (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <HiPhoto size={64} className="text-gray-200" />
+                    </div>
+                  ) : (
+                    <img
+                      src={allImages[selectedImage] || mainImage}
+                      alt={product.name}
+                      className={`w-full h-full object-cover transition-opacity duration-500 ${allOut ? 'opacity-40' : ''}`}
+                      onError={() => setImgError(true)}
+                    />
+                  )}
+                  <div className="absolute top-3 left-3 flex flex-col gap-1.5">
+                    {allOut && (
+                      <span className="bg-foreground text-white text-[9px] font-bold px-3 py-1 uppercase tracking-[0.15em]">
+                        Epuise
+                      </span>
+                    )}
+                    {!allOut && isProductNew(product) && (
+                      <span className="bg-accent text-white text-[9px] font-bold px-3 py-1 uppercase tracking-[0.15em]">
+                        New
+                      </span>
+                    )}
+                    {!allOut && discount > 0 && (
+                      <span className="bg-accent text-white text-[9px] font-bold px-3 py-1 uppercase tracking-[0.15em]">
+                        -{discount}%
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Thumbnails row (mobile + tablet) */}
               {allImages.length > 1 && (
-                <div className="hidden lg:flex flex-col gap-2 max-h-[520px] overflow-y-auto scrollbar-hide">
+                <div className="flex lg:hidden gap-2 overflow-x-auto scrollbar-hide mt-3">
                   {allImages.map((img, i) => (
                     <button
                       key={i}
                       onClick={() => { setSelectedImage(i); setImgError(false) }}
-                      className={`relative w-[68px] h-[68px] shrink-0 overflow-hidden transition-all cursor-pointer ${i === selectedImage ? 'ring-1 ring-foreground' : 'opacity-50 hover:opacity-80'}`}
+                      className={`relative w-16 h-16 shrink-0 overflow-hidden transition-all cursor-pointer ${i === selectedImage ? 'ring-1 ring-foreground' : 'opacity-50 hover:opacity-80'}`}
                     >
                       <img src={img} alt="" className="w-full h-full object-cover" />
                     </button>
                   ))}
                 </div>
               )}
-
-              {/* Main Image */}
-              <div className="relative aspect-square w-full max-w-[520px] bg-gray-50 overflow-hidden">
-                {imgError ? (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <HiPhoto size={64} className="text-gray-200" />
-                  </div>
-                ) : (
-                  <img
-                    src={allImages[selectedImage] || mainImage}
-                    alt={product.name}
-                    className={`w-full h-full object-cover transition-opacity duration-500 ${allOut ? 'opacity-40' : ''}`}
-                    onError={() => setImgError(true)}
-                  />
-                )}
-                <div className="absolute top-3 left-3 flex flex-col gap-1.5">
-                  {allOut && (
-                    <span className="bg-foreground text-white text-[9px] font-bold px-3 py-1 uppercase tracking-[0.15em]">
-                      Epuise
-                    </span>
-                  )}
-                  {!allOut && isProductNew(product) && (
-                    <span className="bg-accent text-white text-[9px] font-bold px-3 py-1 uppercase tracking-[0.15em]">
-                      New
-                    </span>
-                  )}
-                  {!allOut && discount > 0 && (
-                    <span className="bg-accent text-white text-[9px] font-bold px-3 py-1 uppercase tracking-[0.15em]">
-                      -{discount}%
-                    </span>
-                  )}
-                </div>
-              </div>
             </div>
-
-            {/* Mobile Thumbnails */}
-            {allImages.length > 1 && (
-              <div className="flex lg:hidden gap-2 overflow-x-auto scrollbar-hide -mx-5 md:-mx-6 px-5 md:px-6 mb-4 col-span-full">
-                {allImages.map((img, i) => (
-                  <button
-                    key={i}
-                    onClick={() => { setSelectedImage(i); setImgError(false) }}
-                    className={`relative w-16 h-16 shrink-0 overflow-hidden transition-all cursor-pointer ${i === selectedImage ? 'ring-1 ring-foreground' : 'opacity-50 hover:opacity-80'}`}
-                  >
-                    <img src={img} alt="" className="w-full h-full object-cover" />
-                  </button>
-                ))}
-              </div>
-            )}
 
             {/* Right: Product Info */}
             <div className="flex flex-col max-w-[520px] w-full mx-auto">
@@ -336,7 +338,7 @@ export default function ProductDetail() {
               </div>
               <ScrollCarousel columns={5}>
                 {related.map((p: any) => (
-                  <div key={p._id || p.id} className="w-full">
+                  <div key={p._id || p.id} className="flex-none w-[45vw] md:w-auto">
                     <ProductCard product={p} />
                   </div>
                 ))}
