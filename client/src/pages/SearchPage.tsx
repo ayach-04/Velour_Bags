@@ -5,6 +5,7 @@ import { fetchFamilles, fetchCategories } from '../api/categories'
 import ProductCard from '../components/ProductCard'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+const API_BASE = import.meta.env.DEV ? '' : (import.meta.env.VITE_API_URL || '')
 
 const PER_PAGE = 24
 
@@ -33,7 +34,6 @@ export default function SearchPage() {
   const [allProducts, setAllProducts] = useState<any[]>([])
   const [dbFamilles, setDbFamilles] = useState<any[]>([])
   const [dbCategories, setDbCategories] = useState<any[]>([])
-  const API_BASE = import.meta.env.DEV ? '' : (import.meta.env.VITE_API_URL || '')
 
   useEffect(() => {
     fetch(`${API_BASE}/api/products`)
