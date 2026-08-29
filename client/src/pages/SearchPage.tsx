@@ -35,7 +35,7 @@ export default function SearchPage() {
   const [dbCategories, setDbCategories] = useState<any[]>([])
 
   useEffect(() => {
-    fetch('/api/products')
+    fetch(${import.meta.env.VITE_API_URL || ''}/api/products)
       .then(res => res.json())
       .then(data => { if (data.length) setAllProducts(data) })
       .catch(() => {})
