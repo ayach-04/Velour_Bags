@@ -44,7 +44,7 @@ function Hero({ onNavigate }: { onNavigate: (path: string) => void }) {
         </div>
       </div>
 
-      <div className="relative h-[110vw] md:h-auto order-1 md:order-2 bg-muted overflow-hidden">
+      <div className="relative h-[95vh] md:h-auto order-1 md:order-2 bg-muted overflow-hidden">
         <video
           src={heroVid}
           autoPlay
@@ -84,13 +84,13 @@ function CategoryCarousel({ onOpenMenu, onNavigate }: { onOpenMenu: () => void; 
 
   return (
     <section className="py-14 bg-foreground text-background">
-      <div className="max-w-screen-xl mx-auto px-8 md:px-10 mb-8 flex items-baseline justify-between">
+      <div className="max-w-screen-xl mx-auto px-5 md:px-10 mb-8 flex items-baseline justify-center md:justify-between">
         <h2 className="font-display text-3xl md:text-4xl text-background">Nos Univers</h2>
-        <button onClick={onOpenMenu} className="font-sans text-[10px] tracking-[0.18em] uppercase text-background hover:text-background/70 flex items-center gap-2 transition-colors cursor-pointer">
+        <button onClick={onOpenMenu} className="hidden md:flex font-sans text-[10px] tracking-[0.18em] uppercase text-background hover:text-background/70 items-center gap-2 transition-colors cursor-pointer">
           Tout explorer <HiArrowRight size={11} />
         </button>
       </div>
-      <div className="max-w-screen-xl mx-auto px-8 md:px-10 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      <div className="max-w-screen-xl mx-auto px-5 md:px-10 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         {allCategories.map(cat => (
           <a key={cat.name} href={cat.link} onClick={(e) => { e.preventDefault(); onNavigate(cat.link) }} className="group block">
             <div className="relative h-60 md:h-80 overflow-hidden bg-muted mb-3">
@@ -110,7 +110,7 @@ function NewDrops({ products }: { products: any[] }) {
   return (
     <section className="pb-16 bg-foreground text-background">
       <SectionDivider label="Nouvelle Arrivée" />
-      <div className="max-w-screen-xl mx-auto px-8 md:px-10">
+      <div className="max-w-screen-xl mx-auto px-5 md:px-10">
         <ScrollCarousel>
           {items.map(p => (
             <div key={p.id || (p as any)._id} className="flex-none w-[45vw] md:w-auto">
@@ -146,9 +146,9 @@ function PromoBanner({ onNavigate }: { onNavigate: (path: string) => void }) {
   const stock = editionColor?.stock ?? 0
 
   return (
-    <section className="bg-accent text-background overflow-hidden h-[480px] md:h-[560px]">
-      <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-[50%_1fr] h-full">
-        <div className="flex flex-col px-6 md:px-10 pt-16 md:pt-24 pb-10 md:pb-16 order-2 md:order-2">
+    <section className="bg-accent text-background overflow-hidden md:h-[560px]">
+      <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-[50%_1fr] md:h-full">
+        <div className="flex flex-col px-6 md:px-10 pt-10 md:pt-24 pb-10 md:pb-16 order-2 md:order-2">
           <p className="font-sans text-[10px] tracking-[0.22em] uppercase text-background/50 mb-6">Edition Limitee</p>
           <h2 className="font-display text-[3.5rem] md:text-[4.5rem] lg:text-[6rem] leading-[0.88] mb-6">
             {product.name}
@@ -166,7 +166,7 @@ function PromoBanner({ onNavigate }: { onNavigate: (path: string) => void }) {
             <span className="font-sans text-[10px] tracking-[0.15em] uppercase text-background/40">{stock} pieces restantes</span>
           </div>
         </div>
-        <div className="relative h-full order-1 md:order-1 bg-accent/80">
+        <div className="relative h-72 md:h-auto order-1 md:order-1 bg-accent/80">
           <img
             src="https://alemi-zurich.com/cdn/shop/files/alemi-seefeld-mini-small-bag-red-saffiano-leather-model-carrying-bag-by-handle-close-up.jpg?v=1776547843&width=1000"
             alt={`Edition ${product.name}`}
@@ -183,7 +183,7 @@ function BestSellers({ products }: { products: any[] }) {
   return (
     <section className="py-16 bg-foreground text-background">
       <SectionDivider label="Meilleures Ventes" />
-      <div className="max-w-screen-xl mx-auto px-8 md:px-10">
+      <div className="max-w-screen-xl mx-auto px-5 md:px-10">
         <ScrollCarousel columns={4}>
           {sellers.map(p => (
             <div key={p.id || (p as any)._id} className="flex-none w-[45vw] md:w-auto">
@@ -220,7 +220,7 @@ function ProductGridSkeleton() {
   return (
     <section className="py-16 bg-foreground text-background">
       <SectionDivider label="Nouvelle Arrivée" />
-      <div className="max-w-screen-xl mx-auto px-8 md:px-10">
+      <div className="max-w-screen-xl mx-auto px-5 md:px-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8">
           {Array.from({ length: 8 }).map((_, i) => (
             <div key={i} className="space-y-3">
