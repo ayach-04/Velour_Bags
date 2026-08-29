@@ -17,8 +17,8 @@ const API_BASE = import.meta.env.DEV ? '' : (import.meta.env.VITE_API_URL || '')
 
 function Hero({ onNavigate }: { onNavigate: (path: string) => void }) {
   return (
-    <section className="relative min-h-[95vh] grid grid-cols-1 md:grid-cols-[1fr_55%] overflow-hidden">
-      <div className="flex flex-col px-6 md:px-10 py-20 bg-background order-2 md:order-1">
+    <section className="relative min-h-[95vh] sm:min-h-0 grid grid-cols-1 sm:grid-cols-[1fr_55%] overflow-hidden">
+      <div className="flex flex-col px-6 md:px-10 py-20 bg-background order-3 sm:order-1">
         <p className="font-sans text-[10px] tracking-[0.22em] uppercase text-muted-foreground mb-10">
           Automne &mdash; Hiver 2026
         </p>
@@ -44,7 +44,9 @@ function Hero({ onNavigate }: { onNavigate: (path: string) => void }) {
         </div>
       </div>
 
-      <div className="relative h-[95vh] md:h-auto order-1 md:order-2 bg-muted overflow-hidden">
+      <div className="order-2 sm:hidden"><TopBar /></div>
+
+      <div className="relative h-[95vh] sm:h-auto order-1 sm:order-2 bg-muted overflow-hidden">
         <video
           src={heroVid}
           autoPlay
@@ -299,7 +301,7 @@ export default function Home() {
 
       <main className="flex-1 overflow-x-hidden">
         <Hero onNavigate={handleNavigate} />
-        <TopBar />
+        <div className="hidden sm:block"><TopBar /></div>
         <CategoryCarousel onOpenMenu={() => setMenuOpen(true)} onNavigate={handleNavigate} />
 
         {loading ? (
