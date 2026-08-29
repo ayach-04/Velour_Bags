@@ -238,7 +238,7 @@ function CategoryBanners() {
   const [banners, setBanners] = useState<{ title: string; img: string; link: string }[]>([])
 
   useEffect(() => {
-    fetch('/api/categories')
+    fetch(${import.meta.env.VITE_API_URL || ''}/api/categories)
       .then(res => { if (res.ok) return res.json(); throw new Error() })
       .then((cats: any[]) => {
         const targets = ['Mini Bags', 'Clutch Bags']
