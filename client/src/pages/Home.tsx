@@ -13,6 +13,7 @@ import { isProductNew } from '../utils/product'
 import { getCachedProducts, refreshProducts } from '../api/catalog'
 import { fetchFamilles } from '../api/categories'
 import heroVid from '../assets/hero-vid.mp4'
+const API_BASE = import.meta.env.DEV ? '' : (import.meta.env.VITE_API_URL || '')
 
 function Hero({ onNavigate }: { onNavigate: (path: string) => void }) {
   return (
@@ -238,7 +239,7 @@ function CategoryBanners() {
   const [banners, setBanners] = useState<{ title: string; img: string; link: string }[]>([])
 
   useEffect(() => {
-    fetch(${import.meta.env.VITE_API_URL || ''}/api/categories)
+    fetch(`${API_BASE}/api/categories`)
       .then(res => { if (res.ok) return res.json(); throw new Error() })
       .then((cats: any[]) => {
         const targets = ['Mini Bags', 'Clutch Bags']
