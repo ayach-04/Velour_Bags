@@ -8,6 +8,7 @@ import ProductCard from '../components/ProductCard'
 import ColorSwatches from '../components/ColorSwatches'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+const API_BASE = import.meta.env.DEV ? '' : (import.meta.env.VITE_API_URL || '')
 
 function Accordion({ title, children, defaultOpen = false }: { title: string; children: React.ReactNode; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen)
@@ -42,12 +43,12 @@ export default function ProductDetail() {
     setQuantity(1)
 
     let cancelled = false
-    fetch(`${import.meta.env.VITE_API_URL || ''}/api/products/${id}`)
+    fetch(`${API_BASE}/api/products/${id}`)
       .then(res => { if (res.ok) return res.json(); throw new Error() })
       .then(data => { if (!cancelled) { setApiProduct(data); setImgError(false) } })
       .catch(() => {})
 
-    fetch('/api/products')
+    fetch(`${API_BASE}/api/products`)
       .then(res => res.json())
       .then((all: any[]) => {
         if (cancelled) return
